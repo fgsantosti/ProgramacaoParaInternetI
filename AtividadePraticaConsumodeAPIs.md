@@ -15,7 +15,7 @@ Desenvolver uma aplicação web utilizando **HTML, CSS, JavaScript e PHP** capaz
 
 ## 📋 Descrição da Atividade
 
-O aluno deverá escolher **uma das APIs listadas abaixo** e criar uma página web funcional que:
+O aluno deverá escolher **uma das APIs listadas abaixo** e criar uma página web funcional que, caso o aluno vá utilizar outra api não citada avisar o professor com antecedência:
 
 1. Realize o consumo da API via **PHP** (back-end)
 2. Exiba os dados retornados de forma visual e organizada
