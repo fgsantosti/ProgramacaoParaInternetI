@@ -179,16 +179,16 @@ $produtos = [
     <tbody>
         <?php foreach ($produtos as $p): ?>
         <tr>
-            <td>
-                <a href="detalhe_produto.php?id=<?= $p['id'] ?>">
-                    <?= $p['id'] ?>
-                </a>
-            </td>
-            <td><?= htmlspecialchars($p['nome']) ?></td>
-            <td><?= htmlspecialchars($p['categoria']) ?></td>
+            <td><?= $p['id'] ?></a></td>
+            <td><?= $p['nome'] ?></td>
+            <td><?= $p['categoria'] ?></td>
             <td class="preco">R$ <?= number_format($p['preco'], 2, ',', '.') ?></td>
-            <td class="<?= $p['estoque'] < 100 ? 'baixo-estoque' : '' ?>">
+            <td class="<​?= $p['estoque'] < 100 ? 'baixo-estoque' : '' ?>">
                 <?= $p['estoque'] ?> <?= $p['estoque'] < 100 ? '⚠️' : '' ?>
+            </td>
+            <td>
+                    <!-- Link passando o ID -->
+                    <a href="detalhe_produto.php?id=<?= $p['id'] ?>">Ver Detalhes</a>
             </td>
         </tr>
         <?php endforeach; ?>
