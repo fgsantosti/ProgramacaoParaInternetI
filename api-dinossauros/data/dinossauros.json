@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "nome": "Coelophysis",
+    "periodo": "Triássico",
+    "imagem": "imagens/coelophysis.png",
+    "descricao": "Dinossauro carnívoro de pequeno porte, ágil e com corpo leve. Viveu em grupos e é um dos terópodes mais conhecidos do Triássico final.",
+    "altura": "1 m",
+    "comprimento": "3 m",
+    "peso": "20 kg",
+    "dieta": "Carnívoro"
+  },
+  {
+    "id": 2,
+    "nome": "Plateosaurus",
+    "periodo": "Triássico",
+    "imagem": "imagens/plateosaurus.png",
+    "descricao": "Grande herbívoro do fim do Triássico, com pescoço alongado e dentes adaptados para vegetação. Considerado um dos primeiros dinossauros de grande porte.",
+    "altura": "3,5 m",
+    "comprimento": "8 m",
+    "peso": "4 t",
+    "dieta": "Herbívoro"
+  },
+  {
+    "id": 3,
+    "nome": "Herrerasaurus",
+    "periodo": "Triássico",
+    "imagem": "imagens/herrerasaurus.png",
+    "descricao": "Predador bípede primitivo da América do Sul, com mandíbula forte e garras afiadas. Foi um dos primeiros grandes carnívoros entre os dinossauros.",
+    "altura": "1,5 m",
+    "comprimento": "6 m",
+    "peso": "350 kg",
+    "dieta": "Carnívoro"
+  },
+  {
+    "id": 4,
+    "nome": "Eoraptor",
+    "periodo": "Triássico",
+    "imagem": "imagens/eoraptor.png",
+    "descricao": "Pequeno dinossauro considerado muito próximo das formas mais antigas do grupo. Provavelmente tinha dieta variada e locomoção rápida.",
+    "altura": "0,8 m",
+    "comprimento": "1 m",
+    "peso": "10 kg",
+    "dieta": "Onívoro"
+  },
+  {
+    "id": 5,
+    "nome": "Stegosaurus",
+    "periodo": "Jurássico",
+    "imagem": "imagens/stegosaurus.png",
+    "descricao": "Herbívoro famoso pelas placas ósseas nas costas e espinhos na cauda. Usava a cauda para defesa contra predadores.",
+    "altura": "4 m",
+    "comprimento": "9 m",
+    "peso": "5 t",
+    "dieta": "Herbívoro"
+  },
+  {
+    "id": 6,
+    "nome": "Allosaurus",
+    "periodo": "Jurássico",
+    "imagem": "imagens/allosaurus.png",
+    "descricao": "Grande terópode predador do Jurássico superior. Possuía dentes serrilhados e era um dos principais caçadores do seu ecossistema.",
+    "altura": "5 m",
+    "comprimento": "12 m",
+    "peso": "2 t",
+    "dieta": "Carnívoro"
+  },
+  {
+    "id": 7,
+    "nome": "Brachiosaurus",
+    "periodo": "Jurássico",
+    "imagem": "imagens/brachiosaurus.png",
+    "descricao": "Sauropode gigante com membros dianteiros mais longos, pescoço elevado e alimentação em copas altas de árvores.",
+    "altura": "12 m",
+    "comprimento": "25 m",
+    "peso": "35 t",
+    "dieta": "Herbívoro"
+  },
+  {
+    "id": 8,
+    "nome": "Diplodocus",
+    "periodo": "Jurássico",
+    "imagem": "imagens/diplodocus.png",
+    "descricao": "Dinossauro de pescoço e cauda muito longos, corpo relativamente leve para seu tamanho. Provavelmente vivia em grupos.",
+    "altura": "4,5 m",
+    "comprimento": "27 m",
+    "peso": "15 t",
+    "dieta": "Herbívoro"
+  },
+  {
+    "id": 9,
+    "nome": "Tyrannosaurus rex",
+    "periodo": "Cretáceo",
+    "imagem": "imagens/trex.png",
+    "descricao": "Um dos carnívoros mais famosos de todos os tempos, com mordida extremamente poderosa e excelente olfato.",
+    "altura": "6 m",
+    "comprimento": "12,5 m",
+    "peso": "8 t",
+    "dieta": "Carnívoro"
+  },
+  {
+    "id": 10,
+    "nome": "Triceratops",
+    "periodo": "Cretáceo",
+    "imagem": "imagens/triceratops.png",
+    "descricao": "Herbívoro robusto com três chifres e grande gola óssea. Utilizava essas estruturas para defesa e possivelmente exibição social.",
+    "altura": "3 m",
+    "comprimento": "9 m",
+    "peso": "7 t",
+    "dieta": "Herbívoro"
+  },
+  {
+    "id": 11,
+    "nome": "Velociraptor",
+    "periodo": "Cretáceo",
+    "imagem": "imagens/velociraptor.png",
+    "descricao": "Terópode pequeno e inteligente, com garra curvada característica nos pés. Evidências sugerem presença de penas.",
+    "altura": "0,7 m",
+    "comprimento": "2 m",
+    "peso": "15 kg",
+    "dieta": "Carnívoro"
+  },
+  {
+    "id": 12,
+    "nome": "Ankylosaurus",
+    "periodo": "Cretáceo",
+    "imagem": "imagens/ankylosaurus.png",
+    "descricao": "Dinossauro blindado com placas ósseas e uma clava na ponta da cauda. Era um herbívoro bem protegido contra ataques.",
+    "altura": "1,7 m",
+    "comprimento": "8 m",
+    "peso": "6 t",
+    "dieta": "Herbívoro"
+  }
+]

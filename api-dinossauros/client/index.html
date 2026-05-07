@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Dinossauros | Cliente da API REST</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <h1>🦖 API REST de Dinossauros</h1>
+      <p>Cliente web para consumir endpoints em PHP e renderizar dados de forma dinâmica com Fetch API.</p>
+    </header>
+
+    <section class="panel">
+      <form id="form-busca">
+        <div class="field">
+          <label for="nome">Buscar por nome</label>
+          <input id="nome" name="nome" type="text" placeholder="Ex.: raptor" />
+        </div>
+
+        <div class="field">
+          <label for="periodo">Filtrar por período</label>
+          <select id="periodo" name="periodo">
+            <option value="">Todos</option>
+            <option value="Triássico">Triássico</option>
+            <option value="Jurássico">Jurássico</option>
+            <option value="Cretáceo">Cretáceo</option>
+          </select>
+        </div>
+
+        <button class="btn-primary" type="submit">Pesquisar</button>
+        <button class="btn-secondary" type="button" id="limpar">Limpar</button>
+      </form>
+
+      <p class="status" id="status">Carregando dinossauros...</p>
+      <section id="resultados" class="grid" aria-live="polite"></section>
+    </section>
+  </main>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <article class="modal-card">
+      <img class="modal-media" id="modal-imagem" src="" alt="Imagem do dinossauro" />
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-titulo"></h2>
+          <button class="close" id="fechar-modal" aria-label="Fechar">×</button>
+        </div>
+
+        <p id="modal-descricao"></p>
+        <div class="specs" id="modal-specs"></div>
+      </div>
+    </article>
+  </div>
+
+  <script>
+    // Endereço da API relativo ao arquivo client/index.html.
+    const API_URL = '../api/dinossauros.php';
+
+    const formBusca = document.getElementById('form-busca');
+    const campoNome = document.getElementById('nome');
+    const campoPeriodo = document.getElementById('periodo');
+    const btnLimpar = document.getElementById('limpar');
+    const statusEl = document.getElementById('status');
+    const resultadosEl = document.getElementById('resultados');
+
+    const modal = document.getElementById('modal');
+    const fecharModalBtn = document.getElementById('fechar-modal');
+    const modalImagem = document.getElementById('modal-imagem');
+    const modalTitulo = document.getElementById('modal-titulo');
+    const modalDescricao = document.getElementById('modal-descricao');
+    const modalSpecs = document.getElementById('modal-specs');
+
+    /**
+     * Monta URL da API com base nos filtros preenchidos.
+     */
+    function montarURL() {
+      const params = new URLSearchParams();
+      const nome = campoNome.value.trim();
+      const periodo = campoPeriodo.value.trim();
+
+      // Regra de negócio simples: se nome for informado, ele tem prioridade.
+      if (nome) {
+        params.set('nome', nome);
+      } else if (periodo) {
+        params.set('periodo', periodo);
+      }
+
+      const query = params.toString();
+      return query ? `${API_URL}?${query}` : API_URL;
+    }
+
+    /**
+     * Define classe de cor conforme período.
+     */
+    function classePeriodo(periodo) {
+      const p = (periodo || '').toLowerCase();
+      if (p === 'triássico' || p === 'triassico') return 'triassico';
+      if (p === 'jurássico' || p === 'jurassico') return 'jurassico';
+      return 'cretaceo';
+    }
+
+    /**
+     * Escapa texto para evitar injeção ao montar HTML.
+     */
+    function escapeHtml(texto) {
+      const div = document.createElement('div');
+      div.textContent = String(texto ?? '');
+      return div.innerHTML;
+    }
+
+    /**
+     * Renderiza cards com os resultados retornados pela API.
+     */
+    function renderizarCards(lista) {
+      resultadosEl.innerHTML = '';
+
+      if (!lista.length) {
+        resultadosEl.innerHTML = '<div class="empty">Nenhum dinossauro encontrado para este filtro.</div>';
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+
+      lista.forEach((dino) => {
+        const card = document.createElement('article');
+        card.className = `card ${classePeriodo(dino.periodo)}`;
+        card.innerHTML = `
+          <img src="../${escapeHtml(dino.imagem)}" alt="${escapeHtml(dino.nome)}"
+               onerror="this.src='https://placehold.co/600x360/0f172a/94a3b8?text=Sem+Imagem'" />
+          <div class="card-body">
+            <span class="chip">${escapeHtml(dino.periodo)}</span>
+            <h3>${escapeHtml(dino.nome)}</h3>
+            <p>${escapeHtml((dino.descricao || '').slice(0, 110))}...</p>
+          </div>
+        `;
+
+        card.addEventListener('click', () => abrirModal(dino));
+        fragment.appendChild(card);
+      });
+
+      resultadosEl.appendChild(fragment);
+    }
+
+    /**
+     * Exibe modal com detalhes do dinossauro selecionado.
+     */
+    function abrirModal(dino) {
+      modalImagem.src = `../${dino.imagem}`;
+      modalImagem.alt = dino.nome;
+      modalTitulo.textContent = `${dino.nome} (#${dino.id})`;
+      modalDescricao.textContent = dino.descricao || 'Sem descrição disponível.';
+
+      const specs = [
+        ['Período', dino.periodo],
+        ['Altura', dino.altura],
+        ['Comprimento', dino.comprimento],
+        ['Peso', dino.peso],
+        ['Dieta', dino.dieta],
+      ].filter(([, valor]) => valor);
+
+      modalSpecs.innerHTML = specs.map(([titulo, valor]) => `
+        <div class="spec">
+          <strong>${escapeHtml(titulo)}</strong>
+          <span>${escapeHtml(valor)}</span>
+        </div>
+      `).join('');
+
+      modal.classList.add('open');
+    }
+
+    function fecharModal() {
+      modal.classList.remove('open');
+    }
+
+    /**
+     * Consome a API e atualiza tela com loading e erros amigáveis.
+     */
+    async function carregarDinossauros() {
+      const url = montarURL();
+      statusEl.className = 'status';
+      statusEl.textContent = 'Carregando...';
+
+      try {
+        const resposta = await fetch(url, { headers: { Accept: 'application/json' } });
+
+        if (!resposta.ok) {
+          throw new Error(`Falha HTTP ${resposta.status}`);
+        }
+
+        const payload = await resposta.json();
+
+        if (!payload.sucesso) {
+          throw new Error(payload.mensagem || 'A API retornou erro.');
+        }
+
+        renderizarCards(payload.dados || []);
+        statusEl.textContent = `${payload.total} resultado(s) encontrado(s).`;
+      } catch (erro) {
+        resultadosEl.innerHTML = '';
+        statusEl.className = 'status error';
+        statusEl.textContent = `Erro ao carregar dados: ${erro.message}`;
+      }
+    }
+
+    formBusca.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+      carregarDinossauros();
+    });
+
+    btnLimpar.addEventListener('click', () => {
+      campoNome.value = '';
+      campoPeriodo.value = '';
+      carregarDinossauros();
+    });
+
+    fecharModalBtn.addEventListener('click', fecharModal);
+    modal.addEventListener('click', (evento) => {
+      if (evento.target === modal) fecharModal();
+    });
+    document.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Escape') fecharModal();
+    });
+
+    // Carregamento inicial.
+    carregarDinossauros();
+  </script>
+</body>
+</html>

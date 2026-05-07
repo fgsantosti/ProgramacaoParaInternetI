@@ -2,7 +2,7 @@
 // Lista de produtos do supermercado
 $produtos = [
     ["id" => 1, "nome" => "Arroz 5kg",         "categoria" => "Grãos",     "preco" => 24.90, "estoque" => 150],
-    ["id" => 2, "nome" => "Feijão 1kg",         "categoria" => "Grãos",     "preco" => 8.50,  "estoque" => 200],
+    ["id" => 2, "nome" => "Feijão 1kg",         "categoria" => "Grãos",     "preco" => 8.50,  "estoque" => 20],
     ["id" => 3, "nome" => "Leite Integral 1L",  "categoria" => "Laticínios","preco" => 5.99,  "estoque" => 300],
     ["id" => 4, "nome" => "Óleo de Soja 900ml", "categoria" => "Óleos",     "preco" => 7.80,  "estoque" => 120],
     ["id" => 5, "nome" => "Açúcar 1kg",         "categoria" => "Mercearia", "preco" => 4.50,  "estoque" => 180],
@@ -40,17 +40,22 @@ $produtos = [
             <th>Categoria</th>
             <th>Preço</th>
             <th>Estoque</th>
+            <th>Detalhes</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($produtos as $p): ?>
         <tr>
-            <td><?= $p['id'] ?></td>
+            <td><?= $p['id'] ?></a></td>
             <td><?= $p['nome'] ?></td>
             <td><?= $p['categoria'] ?></td>
             <td class="preco">R$ <?= number_format($p['preco'], 2, ',', '.') ?></td>
             <td class="<​?= $p['estoque'] < 100 ? 'baixo-estoque' : '' ?>">
                 <?= $p['estoque'] ?> <?= $p['estoque'] < 100 ? '⚠️' : '' ?>
+            </td>
+            <td>
+                    <!-- Link passando o ID -->
+                    <a href="detalhe_produto.php?id=<?= $p['id'] ?>">Ver Detalhes</a>
             </td>
         </tr>
         <?php endforeach; ?>
